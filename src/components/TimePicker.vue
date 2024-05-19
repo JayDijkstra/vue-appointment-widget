@@ -9,7 +9,7 @@ export default defineComponent({
       required: true,
     }
   },
-  setup(props) {
+  setup(props, {emit}) {
     const times = ref<string[]>([]);
     const selectedTime = ref<string | null>(null);
 
@@ -27,6 +27,8 @@ export default defineComponent({
 
     const selectTime = (time: string) => {
       selectedTime.value = time;
+      // Emit an event to the parent component
+      emit('selectTime', time);
     };
 
     onMounted(generateTimes);
@@ -41,17 +43,17 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto p-2">
     <div class="grid grid-cols-4 gap-2">
       <div v-for="time in times" :key="time" class="p-2 border rounded cursor-pointer hover:bg-blue-500 hover:text-white"
            @click="() => selectTime(time)"
-           :class="[{ 'bg-blue-500 text-white': selectedTime === time }, {'bg-red-500 text-white': !availableTimes.includes(time)}]"
+           :class="[
+               { 'bg-blue-500 text-white': selectedTime === time },
+           ]"
+           v-show="availableTimes.includes(time)"
       >
         {{ time }}
       </div>
-    </div>
-    <div v-if="selectedTime" class="mt-4 p-4 border rounded">
-      Geselecteerde tijd: <strong>{{ selectedTime }}</strong>
     </div>
   </div>
 </template>

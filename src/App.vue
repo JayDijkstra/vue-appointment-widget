@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Appointment from './components/Appointment.vue'
+import Appointment from './components/Appointment.vue';
 </script>
 
 <template>
