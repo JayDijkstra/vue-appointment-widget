@@ -2,6 +2,7 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import {onBeforeMount, ref} from "vue";
+import TimePicker from "./TimePicker.vue";
 
 interface Appointment {
   uuid: string;
@@ -54,8 +55,8 @@ onBeforeMount(() => {
 
   availableTimes.value = {
     '2024-05-20': ['09:00', '09:30', '10:00'],
-    '2024-01-02': ['09:00', '10:00', '11:00'],
-    '2024-01-03': ['09:00', '10:00', '11:00'],
+    '2024-05-21': ['12:00', '12:30', '16:30'],
+    '2024-05-22': ['15:00', '15:30', '16:00'],
   }
 });
 
@@ -117,16 +118,7 @@ const handleDate = (value: Date) => {
 
       <!-- show "Er zijn geen tijden beschikbaar" when there are no available times -->
       <ul class="space-y-2 p-4">
-        <li v-if="availableTimes[strippedDate] === undefined">Er zijn geen tijden beschikbaar</li>
-
-        <li v-for="time in availableTimes[strippedDate]"
-            :key="time"
-            class="bg-white rounded-md p-4 flex flex-col"
-            @click="selectTime(time)"
-            :class="{ selected: selectedTime === time }"
-        >
-          <h2 class="font-semibold text-lg">{{ time }}</h2>
-        </li>
+        <TimePicker :available-times="Object.values(availableTimes)" />
       </ul>
 
       <button @click="previousStep" class="bg-blue-500 text-white p-2 rounded-md">Previous</button>
