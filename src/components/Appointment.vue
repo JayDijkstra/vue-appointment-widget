@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import {onBeforeMount, ref, watch} from "vue";
+import {onBeforeMount, ref} from "vue";
 import TimePicker from "./TimePicker.vue";
 
 interface Appointment {
